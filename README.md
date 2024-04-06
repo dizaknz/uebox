@@ -1,6 +1,6 @@
 ## UE Box
 
-[UE](https://github.com/EpicGames/UnrealEngine) box of goodies
+Utility [UE](https://github.com/EpicGames/UnrealEngine) project
 
 ## Build
 
