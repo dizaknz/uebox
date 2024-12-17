@@ -6,6 +6,9 @@
 #include "ShowFlags.h"
 #include "Log.h"
 
+#if ENGINE_MAJOR_VERSION >= 5 && ENGINE_MINOR_VERSION > 1
+#include "ImageUtils.h"
+#endif
 #include "RHICommandList.h"
 
 #include "ImageWrite.h"
@@ -105,7 +108,8 @@ void AImageCapturer::OnBackBufferReady(SWindow& SlateWindow, const FTexture2DRHI
         CachedTexture->GetSizeY() > BackBuffer->GetSizeY())
     {
         FRHIResourceCreateInfo Info(TEXT("CachedTexture"));
-        CachedTexture = RHICreateTexture2D(
+#if ENGINE_MAJOR_VERSION >= 5 && ENGINE_MINOR_VERSION > 1
+        CachedTexture = CreateTexture2D(
             BackBuffer->GetSizeX(),
             BackBuffer->GetSizeY(),
             BackBuffer->GetFormat(), 
@@ -114,6 +118,16 @@ void AImageCapturer::OnBackBufferReady(SWindow& SlateWindow, const FTexture2DRHI
             TexCreate_SRGB,
             Info);
 
+#else
+        CachedTexture = RHICreateTexture2D(
+            BackBuffer->GetSizeX(),
+            BackBuffer->GetSizeY(),
+            BackBuffer->GetFormat(), 
+            1, 
+            1,
+            TexCreate_SRGB,
+            Info);
+#endif
         bIsCapturing = true;
     }
 #else

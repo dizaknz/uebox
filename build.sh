@@ -34,7 +34,7 @@ package() {
         -package \
         -pak \
         -nop4 \
-        -ue4exe=UE4Editor-Cmd \
+        -unrealexe=UnrealEditor-Cmd \
         -archive \
         -archivedirectory=$BIN/Packaged \
         -clientconfig=Test \
